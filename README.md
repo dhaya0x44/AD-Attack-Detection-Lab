@@ -36,7 +36,7 @@ crackmapexec smb 10.0.0.0/24
 **MITRE ATT&CK Mapping:**
 - T1046 – Network Service Discovery  
 - T1018 – Remote System Discovery
-- 
+  
 ---
 
 ### 2. LDAP Enumeration
