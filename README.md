@@ -33,6 +33,10 @@ The objective is to simulate real-world adversary behavior in an enterprise AD e
 crackmapexec smb 10.0.0.0/24
 ```
 
+**MITRE ATT&CK Mapping:**
+- T1046 – Network Service Discovery  
+- T1018 – Remote System Discovery
+- 
 ---
 
 ### 2. LDAP Enumeration
@@ -43,6 +47,10 @@ crackmapexec smb 10.0.0.0/24
 ldapsearch -x -H ldap://10.0.0.10 -D "lab\\john" -w Password123 -b "dc=lab,dc=local" "(objectClass=user)" sAMAccountName
 ```
 
+**MITRE ATT&CK Mapping:**
+- T1087 – Account Discovery  
+- T1482 – Domain Trust Discovery  
+
 ---
 
 ### 3. SMB Enumeration
@@ -50,6 +58,10 @@ ldapsearch -x -H ldap://10.0.0.10 -D "lab\\john" -w Password123 -b "dc=lab,dc=lo
 - Accessed data using valid credentials  
 - Demonstrated potential data exposure  
 
+**MITRE ATT&CK Mapping:**
+- T1135 – Network Share Discovery  
+- T1021.002 – SMB/Windows Admin Shares
+  
 ---
 
 ### 4. Password Spraying
@@ -60,6 +72,9 @@ ldapsearch -x -H ldap://10.0.0.10 -D "lab\\john" -w Password123 -b "dc=lab,dc=lo
 crackmapexec smb 10.0.0.0/24 -u john -p Password123
 ```
 
+**MITRE ATT&CK Mapping:**
+- T1110.003 – Password Spraying
+  
 ---
 
 ### 5. Kerberoasting
@@ -70,6 +85,9 @@ crackmapexec smb 10.0.0.0/24 -u john -p Password123
 impacket-GetUserSPNs lab.local/john:Password123 -dc-ip 10.0.0.10 -request
 ```
 
+**MITRE ATT&CK Mapping:**
+- T1558.003 – Kerberoasting
+  
 ---
 
 ### 🔓 Password Cracking (Offline Attack)
@@ -82,7 +100,6 @@ john --wordlist=word.txt Hash.txt
 ```
 
 **MITRE ATT&CK Mapping:**
-- T1558.003 – Kerberoasting  
 - T1110 – Brute Force  
 
 ---
@@ -95,18 +112,30 @@ john --wordlist=word.txt Hash.txt
 bloodhound-python -d lab.local -u john -p Password123 -dc dc01.lab.local -ns 10.0.0.10 --dns-tcp --disable-autogc -c all --zip
 ```
 
+**MITRE ATT&CK Mapping:**
+- T1482 – Domain Trust Discovery  
+- T1069.002 – Permission Groups Discovery (Domain Groups)  
+
 ---
 
 ### 7. Privilege Escalation
 - Misconfiguration allowed Domain Admin privileges  
 - Demonstrated full domain compromise  
 
+**MITRE ATT&CK Mapping:**
+- T1068 – Exploitation for Privilege Escalation  
+- T1078 – Valid Accounts
+  
 ---
 
 ### 8. Lateral Movement
 - Executed commands across domain systems  
 - Validated administrative control  
 
+**MITRE ATT&CK Mapping:**
+- T1021 – Remote Services  
+- T1021.002 – SMB/Windows Admin Shares
+  
 ---
 
 ## 🧠 Detection Engineering
@@ -182,10 +211,10 @@ Suricata → Raspberry Pi → Loki → Grafana
 
 ## 📈 Results
 
-- Simulated full AD attack lifecycle  
-- Captured real-time telemetry  
-- Built visibility into attacker behavior  
-- Demonstrated detection workflow  
+- Successfully simulated a complete Active Directory attack lifecycle, covering reconnaissance, credential access, privilege escalation, and lateral movement  
+- Generated and captured high-fidelity network telemetry using Suricata across multiple attack stages  
+- Established end-to-end visibility into attacker behavior through centralized logging and monitoring pipelines  
+- Validated detection capabilities by correlating attack activity with custom IDS rules and real-time dashboards 
 
 ---
 
@@ -204,11 +233,11 @@ Suricata → Raspberry Pi → Loki → Grafana
 
 ## 🛡️ Key Learnings
 
-- AD attack techniques (Kerberoasting, enumeration)  
-- Credential attack strategies  
-- Detection engineering using network logs  
-- SOC monitoring workflows  
-- MITRE ATT&CK mapping  
+- Deep understanding of Active Directory attack techniques, including enumeration, Kerberoasting, and privilege escalation paths  
+- Practical experience in identifying and exploiting weak credentials and misconfigurations within enterprise environments  
+- Hands-on implementation of detection engineering using network-based telemetry and IDS rule development  
+- Strengthened SOC investigation skills through log analysis, attack correlation, and behavioral tracking  
+- Applied MITRE ATT&CK framework to map adversary techniques and validate detection coverage 
 
 ---
 
